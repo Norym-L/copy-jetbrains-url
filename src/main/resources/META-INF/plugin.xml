@@ -1,0 +1,47 @@
+<!-- 插件描述文件：注册 Action、右键菜单项、通知组。
+     不需要 <idea-version>：由 Gradle 的 patchPluginXml / pluginConfiguration 自动写入。 -->
+<idea-plugin>
+    <id>com.example.copyjetbrainsurl</id>
+    <name>Copy JetBrains URL</name>
+    <vendor>example</vendor>
+
+    <description><![CDATA[
+        复制当前文件与光标位置对应的 CLion 跳转链接（jetbrains://clion/navigate/reference?...)
+        到系统剪贴板，方便贴给同事或 AI 助手。
+        <br/>
+        生成的链接格式：
+        <code>jetbrains://clion/navigate/reference?project=MyProject&amp;path=src%2Fmain.cpp:11:4</code>
+        <br/>
+        路径始终是相对项目根目录的路径，WSL 项目同样适用。
+    ]]></description>
+
+    <!-- 平台基础 API（AnAction / 剪贴板 / 通知 / VFS）。 -->
+    <depends>com.intellij.modules.platform</depends>
+    <!-- 只在 CLion 及其衍生 IDE 中加载；如需在别的 IDE 里也能用，删掉这一行。 -->
+    <depends>com.intellij.modules.clion</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- 右下角气泡通知；id 必须与 Kotlin 代码里的 NOTIFICATION_GROUP_ID 一致。 -->
+        <notificationGroup id="CopyJetbrainsUrl.Notification"
+                           displayType="BALLOON"
+                           isLogByDefault="false"/>
+    </extensions>
+
+    <actions>
+        <!-- 右键菜单项；快捷键按要求先留空（可在 Settings → Keymap 里随时绑定）。
+             如需默认快捷键，取消下面三条 <keyboard-shortcut> 的注释即可。 -->
+        <action id="CopyJetbrainsUrlAction"
+                class="com.example.copyjetbrainsurl.CopyJetbrainsUrlAction"
+                text="Copy JetBrains URL"
+                description="复制当前光标位置的 CLion 跳转链接"
+                icon="AllIcons.Actions.Copy">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+
+            <!--
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt shift C"/>
+            <keyboard-shortcut keymap="Mac OS X" first-keystroke="meta alt shift C"/>
+            <keyboard-shortcut keymap="Mac OS X 10.5+" first-keystroke="meta alt shift C"/>
+            -->
+        </action>
+    </actions>
+</idea-plugin>

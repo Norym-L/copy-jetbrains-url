@@ -1,0 +1,18 @@
+# Gradle / IntelliJ Platform
+.gradle/
+build/
+out/
+.kotlin/
+.intellijPlatform/
+
+# IDE
+.idea/
+*.iml
+local.properties
+
+# 本地工具（下载的 Kotlin 编译器等）
+.tools/
+
+# OS
+.DS_Store
+Thumbs.db
