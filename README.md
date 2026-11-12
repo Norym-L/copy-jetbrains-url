@@ -213,3 +213,7 @@ copy-jetbrains-url/
   根目录结构不同，CLion 可能定位到别处。
 - 项目名按 URL 组件编码，含空格/中文的工程名也能正确传递。
 - `%2F` 是给 URL 传输用的；CLion 收到 `jetbrains://` 链接后会先 decode 回 `/` 再定位文件。
+
+## 更新日志
+
+见 [CHANGELOG.md](CHANGELOG.md)，当前版本 `1.0.1`。
